@@ -1,0 +1,32 @@
+export default const Login=()=>{
+const navigate =useNvigate()
+const handleSingOut =()=>{
+setUser({})
+localStorage.clear()
+document.getElemntById("signInDiv").hidden = false
+navigate("/login");
+
+}
+const handleCallBackResponse =(response)=>{
+const userObj = jwt_decode(response.credential)
+localStorage.setItem(user,JSON.stringfy(userObj))
+setUser(userObj )
+//db
+const {sub ,picture,name} = userObj
+const doc = {_id:sub,image:picture,userName:name,type:"user"}
+document.getElemntById("signInDiv").hidden = true
+client.createIfNotExist(doc).then(()=>navigate("login"))
+}
+useEffect(()=>{
+google.account.id.intialize({client_id:`${process.env.REACT.APP.GOOGLE.ID}`,callback:handleCallBackResponse})
+google.account.id.renderbutton({theme,"outline",size:"large"})
+google.account.id.prompt()
+},[])
+return (<div>
+<div id="signInDiv"></div>
+<Routes>
+<Route path="/*" element={<Home/>}>
+<Route path="/login" element={<Login/>}>
+</Routes>
+</div>)
+}

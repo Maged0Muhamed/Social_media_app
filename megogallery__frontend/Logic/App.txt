@@ -1,0 +1,17 @@
+export default const App =()=>{
+useEffect(()=>{
+const navigate =useNvigate()
+fetchUser(){
+const user = localStorage.getItem("user") !== "undefined" ? JSON.parse(localStorage.getItem("user")) :localStorage.clear() ;
+return user
+}
+const user =fetchUser() 
+if(!user)navigate("/login")
+},[])
+return (<div>
+<Routes>
+<Route path="/*" element={<Home/>}>
+<Route path="/login" element={<Login/>}>
+</Routes>
+</div>)
+}

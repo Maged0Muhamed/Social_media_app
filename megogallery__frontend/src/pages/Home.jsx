@@ -26,7 +26,7 @@ const Home = () => {
       // console.log(userDb);
     });
   }, []);
-  console.log(userDb);
+  // console.log(userDb);
 
   useEffect(() => {
     scrollRef.current.scrollTo(0, 0);

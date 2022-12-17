@@ -9,8 +9,9 @@ import Pins from "./Pins";
 import { userQuery } from "../utils/data";
 const Home = () => {
   const [toggleSidebar, setToggleSidebar] = useState(false);
-  const [user, setUser] = useState(null);
+  const [userDb, setUserDb] = useState(null);
   const scrollRef = useRef(null);
+  //User Info From LocalStorage
   const userInfo =
     localStorage.getItem("user") !== "undefined"
       ? JSON.parse(localStorage.getItem("user"))
@@ -21,9 +22,12 @@ const Home = () => {
     // console.log(query);
     client.fetch(query).then((data) => {
       // console.log(data);
-      setUser(data[0]);
+      setUserDb(data[0]);
+      // console.log(userDb);
     });
   }, []);
+  console.log(userDb);
+
   useEffect(() => {
     scrollRef.current.scrollTo(0, 0);
   }, []);
@@ -32,7 +36,7 @@ const Home = () => {
       <div className="flex md:flex-row flex-col bg-gray-50 w-full h-screen transition-height duration-75 ease-out ">
         {/*  Sidebar for Meduim screen & above*/}
         <div className=" h-screen hidden md:flex flex-initial bg-black/70 ">
-          <Sidebar user={user && user} closeToggle={setToggleSidebar} />
+          <Sidebar user={userDb && userDb} closeToggle={setToggleSidebar} />
         </div>
         {/* Sidebar for small screen under meduim screens*/}
         <div className="flex flex-row md:hidden ">
@@ -45,8 +49,8 @@ const Home = () => {
             <Link to="/">
               <img src={logo} alt="logo" className="w-24" />
             </Link>
-            <Link to={`user-profile/${user?._id}`}>
-              <img src={user?.image} alt="logo" className="w-28" />
+            <Link to={`user-profile/${userDb?._id}`}>
+              <img src={userDb?.image} alt="logo" className="w-28" />
             </Link>
           </div>
           {/* Toggle Sidebar  */}
@@ -59,14 +63,14 @@ const Home = () => {
                   onClick={() => setToggleSidebar(false)}
                 />
               </div>
-              <Sidebar user={user && user} closeToggle={setToggleSidebar} />
+              <Sidebar user={userDb && userDb} closeToggle={setToggleSidebar} />
             </div>
           )}
         </div>
         <div className="h-screen pb-2 flex-1 overflow-y-scroll" ref={scrollRef}>
           <Routes>
             <Route path="/user-profile/:userId" element={<UserProfile />} />
-            <Route path="/*" element={<Pins user={user && user} />} />
+            <Route path="/*" element={<Pins user={userDb && userDb} />} />
           </Routes>
         </div>
       </div>

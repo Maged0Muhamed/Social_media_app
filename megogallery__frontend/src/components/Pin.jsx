@@ -16,7 +16,7 @@ const Pin = ({ pin }) => {
     localStorage.getItem("user") !== "undefined"
       ? JSON.parse(localStorage.getItem("user"))
       : localStorage.clear();
-  console.log(pin);
+  // console.log(pin);
   let alreadySaved = pin?.save?.filter(
     (item) => item?.postedBy?._id === user?.sub
   );

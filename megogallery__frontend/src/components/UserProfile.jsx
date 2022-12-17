@@ -24,10 +24,10 @@ const UserProfile = () => {
     "bg-primary mr-4 text-black font-bold p-2 rounded-full w-20 outline-none";
   const randomImage =
     "https://source.unsplash.com/1600x900/?nature,photography,technology";
-  function handleSignOut(event) {
+  function handleSignOut() {
+    navigate("/login");
     setUser({});
     document.getElementById("signOutDiv").hidden = false;
-    navigate("/login");
   }
   useEffect(() => {
     const query = userQuery(userId);
@@ -77,7 +77,7 @@ const UserProfile = () => {
                 {userId === user._id && (
                   <button
                     className=" bg-white p-2 rounded-full cursor-pointer outline-none shadow-md"
-                    onClick={(e) => handleSignOut(e)}
+                    onClick={() => handleSignOut()}
                   >
                     <AiOutlineLogout color="red" fontSize={21} />
                   </button>

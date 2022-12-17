@@ -1,0 +1,16 @@
+Home.js File 
+export default cosnt Home =()=>{
+const [userDb,setUserDb]= useState({})
+const userIfo = localStorage.getItem("user") !=="undefined" ? JSON.parse(localStorage.getItem("user")) : localStorage.clear();
+const userId = userInfo?.sub
+useEffect(()=>{
+const query = userQuery(userId)
+client.fetch(query).thne((userData)=>{setUserDb(userData)})
+},[])
+return ()
+}
+data.js file 
+export default const userQuery =(userId) =>{
+const query = `*[_type =="user" &&_id=='${userId}']`
+return query
+}

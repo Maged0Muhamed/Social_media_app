@@ -14,11 +14,11 @@ const Login = () => {
   function handleCallbackResponse(response) {
     // console.log("Encoded JWT ID token: " + response.credential);
     let userObject = jwt_decode(response.credential);
-    localStorage.setItem("user", JSON.stringify(userObject));
-    // console.log(userObject);
     const { name, picture, sub } = userObject;
     const doc = { _id: sub, _type: "user", userName: name, image: picture };
+    localStorage.setItem("user", JSON.stringify(userObject));
     setUser(userObject);
+    // console.log(userObject);
     document.getElementById("signInDiv").hidden = true;
     client.createIfNotExists(doc).then(() => {
       navigate("/", { replace: true });
@@ -27,6 +27,7 @@ const Login = () => {
   function handleSignOut(event) {
     setUser({});
     document.getElementById("signInDiv").hidden = false;
+    navigate("/login");
   }
   useEffect(() => {
     /* global google */
